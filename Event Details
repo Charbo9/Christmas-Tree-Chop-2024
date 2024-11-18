@@ -1,0 +1,99 @@
+# Christmas Tree Chop Event Details
+christmas_event = {
+    "dates": "November 29-30",
+    "activities": [
+        {
+            "name": "Friday Evening Party",
+            "date": "November 29",
+            "time": "7:00 PM - 8:30 PM",
+            "details": "A casual gathering to kick off the annual Christmas event."
+        },
+        {
+            "name": "Tree Hunt",
+            "date": "November 30",
+            "time": "TBD",
+            "details": "A trip to find and chop down the perfect Christmas tree, ensuring Reese’s can accompany us with all their family members."
+        }
+    ],
+    "attendance": {
+        "yes": [
+            "The Schneiders (J&C) - Friday and Saturday festivities",
+            "The Mosaico family",
+            "Becca - Happy to hear she still has Christmas cheer!",
+            "Maureese - The 'host with the most'"
+        ],
+        "maybe": [
+            "The Lucas family - Hope they can make it!"
+        ],
+        "no": [
+            "The Schneiders (J&A) & kids"
+        ]
+    }
+}
+
+# Helper function to wrap text within table cells
+def wrap_text(text, width):
+    lines = []
+    while len(text) > width:
+        space_pos = text[:width + 1].rfind(' ')
+        if space_pos == -1:
+            space_pos = width
+        lines.append(text[:space_pos])
+        text = text[space_pos:].lstrip()
+    lines.append(text)
+    return lines
+
+# Display event information
+print("Christmas Tree Chop Event Details")
+print(f"Dates: {christmas_event['dates']}")
+print("\nActivities:")
+for activity in christmas_event["activities"]:
+    print(f"- {activity['name']} on {activity['date']} from {activity['time']}: {activity['details']}")
+print("\nAttendance:")
+
+# Table headers and horizontal line
+column_width = 28
+print(f"+{'-' * column_width}+{'-' * column_width}+{'-' * column_width}+")
+print(f"| {'Yes':^{column_width}} | {'Maybe':^{column_width}} | {'No':^{column_width}} |")
+print(f"+{'-' * column_width}+{'-' * column_width}+{'-' * column_width}+")
+
+# Prepare rows for table
+max_length = max(
+    len(christmas_event["attendance"]["yes"]),
+    len(christmas_event["attendance"]["maybe"]),
+    len(christmas_event["attendance"]["no"])
+)
+
+# Combine all rows, adjusting for wrapped text
+rows = []
+for i in range(max_length):
+    yes_lines = wrap_text(christmas_event["attendance"]["yes"][i], column_width) if i < len(christmas_event["attendance"]["yes"]) else [""]
+    maybe_lines = wrap_text(christmas_event["attendance"]["maybe"][i], column_width) if i < len(christmas_event["attendance"]["maybe"]) else [""]
+    no_lines = wrap_text(christmas_event["attendance"]["no"][i], column_width) if i < len(christmas_event["attendance"]["no"]) else [""]
+    
+    max_lines = max(len(yes_lines), len(maybe_lines), len(no_lines))
+    for j in range(max_lines):
+        yes = yes_lines[j] if j < len(yes_lines) else ""
+        maybe = maybe_lines[j] if j < len(maybe_lines) else ""
+        no = no_lines[j] if j < len(no_lines) else ""
+        rows.append(f"| {yes:<{column_width}} | {maybe:<{column_width}} | {no:<{column_width}} |")
+
+# Print rows with borders
+for row in rows:
+    print(row)
+print(f"+{'-' * column_width}+{'-' * column_width}+{'-' * column_width}+")
+
+# Add a festive Christmas tree at the end
+christmas_tree = """
+         *
+        /_\\
+       /___\\
+      /_____\\
+     /_______\\
+    /_________\\
+       [___]
+        | |
+"""
+
+print("\nMerry Christmas!\n")
+print(christmas_tree)
